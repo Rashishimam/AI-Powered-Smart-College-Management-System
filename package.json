@@ -1,0 +1,14 @@
+{
+  "name": "campusiq",
+  "version": "1.0.0",
+  "description": "CampusIQ - Full-Stack Multi-Tenant Academic Operations Platform",
+  "scripts": {
+    "backend": "cd backend && node src/server.js",
+    "frontend": "cd frontend && npm.cmd run dev",
+    "build:frontend": "cd frontend && npm.cmd run build",
+    "start": "node run-all.js"
+  },
+  "keywords": ["react", "nodejs", "express", "postgresql", "tailwind", "jwt", "rbac", "campusiq"],
+  "author": "CampusIQ Team",
+  "license": "MIT"
+}

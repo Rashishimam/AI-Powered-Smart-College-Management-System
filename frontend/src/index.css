@@ -1,24 +1,78 @@
 @import "tailwindcss";
 
-@layer base {
-  :root {
-    --primary: #1e3a8a;
-    --primary-hover: #172554;
-    --secondary: #2563eb;
-    --accent-gold: #d97706;
-    --bg-light: #f8fafc;
-    --card-light: #ffffff;
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --font-heading: 'Poppins', 'Inter', system-ui, sans-serif;
+
+  /* RVS Official Color Tokens */
+  --color-primary: #1e3a8a;
+  --color-primary-hover: #172554;
+  --color-secondary: #2563eb;
+  --color-accent-gold: #d97706;
+  --color-navy: #0a192f;
+  --color-navy-dark: #071324;
+  --color-gold: #f59e0b;
+
+  /* Custom animations */
+  --animate-fade-in: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-slide-up: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-scale-in: scaleIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-scale-up: scaleUp 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 
-  body {
-    margin: 0;
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-color: #f8fafc;
-    color: #0f172a;
-    min-height: 100vh;
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
   }
+
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes scaleUp {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+}
+
+/* ==========================================================================
+   Base Layer & Reset
+   ========================================================================== */
+:root {
+  --primary: #1e3a8a;
+  --primary-hover: #172554;
+  --secondary: #2563eb;
+  --accent-gold: #d97706;
+  --bg-light: #f8fafc;
+  --card-light: #ffffff;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f8fafc;
+  color: #0f172a;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+/* Ensure all images and media are fluid and never exceed container */
+img, svg, video, canvas, audio, iframe, embed, object {
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
 }
 
 /* Custom modern light scrollbar */
@@ -26,22 +80,29 @@
   width: 6px;
   height: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: #f1f5f9;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
   border-radius: 9999px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
+
+/* ==========================================================================
+   Custom Utility Classes (ERP & Components)
+   ========================================================================== */
 
 /* ERP Card Styles */
 .erp-card {
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 0.875rem;
+  border-radius: 1rem;
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05), 0 1px 2px -1px rgb(0 0 0 / 0.05);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -52,10 +113,15 @@
 }
 
 /* Table Utilities */
+.erp-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
 .erp-table th {
   background-color: #f8fafc;
   color: #475569;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -81,7 +147,40 @@
   border: 1px solid #fde68a;
 }
 
-/* Print Optimization */
+/* Animation utilities fallback */
+.animate-fade-in {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scale-up {
+  animation: scaleUp 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Shadow utilities fallback */
+.shadow-2xs {
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.03);
+}
+
+.shadow-xs {
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+/* Backdrop blur fallback */
+.backdrop-blur-xs {
+  backdrop-filter: blur(2px);
+}
+
+/* ==========================================================================
+   Print Optimization
+   ========================================================================== */
 @media print {
   body {
     background-color: #ffffff !important;
